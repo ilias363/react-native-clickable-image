@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -9,32 +9,28 @@ import {
 import Sound from 'react-native-sound';
 
 function App(): React.JSX.Element {
-  const currentSound = useRef<Sound | null>(null);
+  let currentSound: Sound | null = null;
 
   const stopCurrentSound = () => {
-    if (currentSound.current) {
-      currentSound.current.stop();
-      currentSound.current.release();
-      currentSound.current = null;
+    if (currentSound) {
+      currentSound.stop();
+      currentSound.release();
+      currentSound = null;
     }
   };
 
   const playSound = (soundFile: string) => {
-    if (currentSound.current) {
+    if (currentSound) {
       stopCurrentSound();
     }
 
-    currentSound.current = new Sound(soundFile, Sound.MAIN_BUNDLE, error => {
+    currentSound = new Sound(soundFile, Sound.MAIN_BUNDLE, error => {
       if (error) {
         console.log('Failed to load sound', error);
         return;
       }
 
-      currentSound.current?.play(success => {
-        if (!success) {
-          console.log('Failed to play sound');
-        }
-      });
+      currentSound?.play();
     });
   };
 
