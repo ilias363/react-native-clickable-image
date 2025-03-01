@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  View,
-  SafeAreaView,
-} from 'react-native';
+import {StyleSheet, View, SafeAreaView} from 'react-native';
 import Sound from 'react-native-sound';
+import TouchableImage from './components/TouchableImage';
 
 function App(): React.JSX.Element {
   let currentSound: Sound | null = null;
@@ -37,23 +32,14 @@ function App(): React.JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.imageContainer}>
-        <TouchableOpacity
+        <TouchableImage
           onPress={() => playSound('chicken_cluking.mp3')}
-          style={styles.imageWrapper}>
-          <Image
-            source={require('./assets/images/chicken_image.jpg')}
-            style={styles.image}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
+          source={require('./assets/images/chicken_image.jpg')}
+        />
+        <TouchableImage
           onPress={() => playSound('duck_quacking.mp3')}
-          style={styles.imageWrapper}>
-          <Image
-            source={require('./assets/images/duck_image.jpg')}
-            style={styles.image}
-          />
-        </TouchableOpacity>
+          source={require('./assets/images/duck_image.jpg')}
+        />
       </View>
     </SafeAreaView>
   );
@@ -68,14 +54,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-evenly',
     alignItems: 'center',
-  },
-  imageWrapper: {
-    padding: 10,
-  },
-  image: {
-    width: 250,
-    height: 250,
-    resizeMode: 'contain',
   },
 });
 
